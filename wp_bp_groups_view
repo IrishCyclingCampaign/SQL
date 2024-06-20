@@ -1,11 +1,13 @@
-SELECT
+SELECT DISTINCT
     `cyclist`.`wp_bp_groups`.`id` AS `id`,
     `cyclist`.`wp_bp_groups`.`name` AS `name`,
     `cyclist`.`wp_bp_groups`.`slug` AS `slug`,
     `cyclist`.`wp_bp_groups`.`description` AS `description`,
     `cyclist`.`wp_bp_groups`.`status` AS `status`,
-    `cyclist`.`wp_bp_groups_groupmeta`.`meta_key`,
-    `cyclist`.`wp_bp_groups_groupmeta`.`meta_value`
-FROM `cyclist`.`wp_bp_groups`
-JOIN `cyclist`.`wp_bp_groups_groupmeta`
-ON `cyclist`.`wp_bp_groups_groupmeta`.`group_id` = `cyclist`.`wp_bp_groups`.`id` AND `cyclist`.`wp_bp_groups_groupmeta`.`meta_key` IN ('local_area', 'latitude', 'longitude')
+    LA1.`meta_value` AS `local_area`,
+    LA2.`meta_value` AS `latitude`,
+    LA3.`meta_value` AS `longitude`    
+FROM `cyclist`.`wp_bp_groups`, `wp_bp_groups_groupmeta` LA1, `wp_bp_groups_groupmeta` LA2, `wp_bp_groups_groupmeta` LA3
+WHERE LA1.`group_id` = `cyclist`.`wp_bp_groups`.`id` AND LA1.`meta_key` = 'local_area'
+  AND LA2.`group_id` = `cyclist`.`wp_bp_groups`.`id` AND LA2.`meta_key` = 'latitude'
+  AND LA3.`group_id` = `cyclist`.`wp_bp_groups`.`id` AND LA3.`meta_key` = 'longitude'  
