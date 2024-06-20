@@ -1,0 +1,11 @@
+SELECT
+    `cyclist`.`wp_bp_groups`.`id` AS `id`,
+    `cyclist`.`wp_bp_groups`.`name` AS `name`,
+    `cyclist`.`wp_bp_groups`.`slug` AS `slug`,
+    `cyclist`.`wp_bp_groups`.`description` AS `description`,
+    `cyclist`.`wp_bp_groups`.`status` AS `status`,
+    `cyclist`.`wp_bp_groups_groupmeta`.`meta_key`,
+    `cyclist`.`wp_bp_groups_groupmeta`.`meta_value`
+FROM `cyclist`.`wp_bp_groups`
+JOIN `cyclist`.`wp_bp_groups_groupmeta`
+ON `cyclist`.`wp_bp_groups_groupmeta`.`group_id` = `cyclist`.`wp_bp_groups`.`id` AND `cyclist`.`wp_bp_groups_groupmeta`.`meta_key` IN ('local_area', 'latitude', 'longitude')
