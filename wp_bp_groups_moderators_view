@@ -5,13 +5,7 @@ SELECT
     `cyclist`.`wp_users`.`user_email` AS `user_email`,
     `cyclist`.`wp_bp_groups_members`.`is_mod` AS `is_mod`,
     `cyclist`.`wp_bp_groups_members`.`user_title` AS `user_title`
-FROM
-    (
-        (
-            `cyclist`.`wp_users`
-        JOIN `cyclist`.`wp_bp_groups`
-        )
-    JOIN `cyclist`.`wp_bp_groups_members`
-    )
-WHERE
-    `cyclist`.`wp_bp_groups`.`id` = `cyclist`.`wp_bp_groups_members`.`group_id` AND `cyclist`.`wp_users`.`ID` = `cyclist`.`wp_bp_groups_members`.`user_id` AND `cyclist`.`wp_bp_groups_members`.`is_mod` = 1
+FROM `cyclist`.`wp_bp_groups`, `cyclist`.`wp_bp_groups_members`, `cyclist`.`wp_users`
+WHERE `cyclist`.`wp_bp_groups`.`id` = `cyclist`.`wp_bp_groups_members`.`group_id`
+  AND `cyclist`.`wp_bp_groups_members`.`user_id` = `cyclist`.`wp_users`.`id`
+  AND `cyclist`.`wp_bp_groups_members`.`is_mod` = 1
